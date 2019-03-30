@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-book',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
+  books: any;
 
-  constructor() { }
+  constructor(private api: ApiService) { 
+  }
 
   ngOnInit() {
+    this.api.getBooks()
+      .subscribe(res => {
+        console.log(res);
+        this.books = res;
+      }, err => {
+        console.log(err);
+      });
   }
 
 }
